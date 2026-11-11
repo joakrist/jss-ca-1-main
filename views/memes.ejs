@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Memes Overview</title>
+  <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+  <%- include('./partials/navbar.ejs') %>
+
+  <section class="container mt-4">
+    <h1 class="mb-4">Memes</h1>
+
+    <!-- Søk: sender ?search=... til serveren (GET /memes) -->
+    <form class="d-flex mb-4" action="/memes" method="get">
+      <input class="form-control me-2" type="text" name="search" placeholder="Search memes by name"
+        value="<%= search %>">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <% if (memes.length === 0) { %>
+      <p>No memes found.</p>
+    <% } else { %>
+      <table class="table align-middle" id="table">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <% if (isLoggedIn) { %>
+              <th scope="col">Options</th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% memes.forEach(function (meme) { %>
+            <tr class="<%= viewed.includes(meme.id) ? 'table-warning' : '' %>">
+              <td>
+                <img src="<%= meme.url %>" alt="<%= meme.name %>"
+                  width="<%= Math.round(meme.width * 0.2) %>"
+                  height="<%= Math.round(meme.height * 0.2) %>">
+              </td>
+              <td><%= meme.name %></td>
+              <% if (isLoggedIn) { %>
+                <td>
+                  <button type="button" class="btn btn-sm btn-primary" onclick="viewMeme(<%= meme.id %>)">Details</button>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+
+  <%- include('./partials/scripts.ejs') %>
+</body>
+
+</html>

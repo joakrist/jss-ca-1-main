@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Meme Details</title>
+  <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+  <%- include('./partials/navbar.ejs') %>
+
+  <section class="container mt-4">
+    <h1 class="mb-4"><%= meme.name %></h1>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <img class="img-fluid" src="<%= meme.url %>" alt="<%= meme.name %>">
+      </div>
+
+      <div class="col-md-6">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">ID</th>
+              <td><%= meme.id %></td>
+            </tr>
+            <tr>
+              <th scope="row">Name</th>
+              <td><%= meme.name %></td>
+            </tr>
+            <tr>
+              <th scope="row">URL</th>
+              <td><a href="<%= meme.url %>" target="_blank"><%= meme.url %></a></td>
+            </tr>
+            <tr>
+              <th scope="row">Width</th>
+              <td><%= meme.width %> px</td>
+            </tr>
+            <tr>
+              <th scope="row">Height</th>
+              <td><%= meme.height %> px</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <a class="btn btn-secondary" href="/memes">Back to memes</a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('./partials/scripts.ejs') %>
+</body>
+
+</html>
